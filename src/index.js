@@ -1,11 +1,28 @@
+/* eslint-disable react/style-prop-object */
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import * as Docx from "docx";
+import DocxRenderer from "./reconciler.js";
+import { saveAs } from "file-saver";
+import { renderAsync } from "docx-preview";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+const doc = {};
+DocxRenderer.render(
+  <document>
+    <section>
+      <paragraph>
+        <textrun>Hello</textrun>
+      </paragraph>
+    </section>
+  </document>,
+  doc,
+  () => {
+    console.log("rendered");
+    console.log(doc.document);
+    Docx.Packer.toBlob(doc.document).then((Blob) =>
+      renderAsync(Blob, document.getElementById("root"))
+    );
+    // Docx.Packer.toBlob(doc.document).then((blob) => {
+    //   saveAs(blob, "example.docx");
+    // });
+  }
 );
