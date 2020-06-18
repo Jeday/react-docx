@@ -18,9 +18,9 @@ DocxRenderer.render(
   </document>,
   renderContainer,
   () => {
-    Docx.Packer.toBlob(renderContainer.document).then((Blob) =>
-      IsSave && saveAs(Blob, "reactDocx.docx");
-      renderAsync(Blob, document.getElementById("root"))
-    );
+    Docx.Packer.toBlob(renderContainer.document).then((Blob) => {
+      if (IsSave) saveAs(Blob, "reactDocx.docx");
+      renderAsync(Blob, document.getElementById("root"));
+    });
   }
 );
