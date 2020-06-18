@@ -2,8 +2,10 @@
 import React from "react";
 import * as Docx from "docx";
 import DocxRenderer from "./reconciler";
-//import { saveAs } from "file-saver";
+import { saveAs } from "file-saver";
 import { renderAsync } from "docx-preview";
+
+const IsSave = false;
 
 const renderContainer = {};
 DocxRenderer.render(
@@ -17,10 +19,8 @@ DocxRenderer.render(
   renderContainer,
   () => {
     Docx.Packer.toBlob(renderContainer.document).then((Blob) =>
+      IsSave && saveAs(Blob, "reactDocx.docx");
       renderAsync(Blob, document.getElementById("root"))
     );
-    // Docx.Packer.toBlob(doc.document).then((blob) => {
-    //   saveAs(blob, "example.docx");
-    // });
   }
 );
