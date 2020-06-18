@@ -16,7 +16,7 @@ React-based rendered for Docx
 
 Use lowercased names of Docx.JS classes
 Shortcuts for Paragraph and TextRun are provided.
-Text outside textrun tag is implicitly wrapped with one and treated as a child element. All props are passed as in to constructor.
+Text outside textrun tag is implicitly wrapped with one and treated as a child element. All props are passed as is to constructor.
 
 ```
   <document>
