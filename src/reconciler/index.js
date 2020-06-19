@@ -4,9 +4,8 @@ import * as Docx from "docx";
 import { is } from "utils/is.js";
 import { DocxTypes } from "reconciler/elements.js";
 
-const emptyObject = {};
 const hostConfig = {
-  // _props contain raw react children
+  // _props contain raw react children too
   createInstance(
     type,
     _props,
@@ -18,21 +17,23 @@ const hostConfig = {
     const classConstructor = DocxTypes[type];
     // sanitise children away from props
     // eslint-disable-next-line no-unused-vars
-    const { children = [], props = {} } = _props;
+
+    const { children = [], ...props } = _props;
     if (classConstructor) {
-      /// for textrun element with singular text child we pass text arg
-      const text =
-        classConstructor.name === "TextRun" &&
-        (is.str(children) || is.num(children))
-          ? children
-          : undefined;
-      const docxInstacne = new classConstructor({ ...props, text });
-      if (type === "document") {
-        if (rootContainerInstance.context_document)
-          throw new Error("Document instance must be singular to React Tree");
-        rootContainerInstance.document = docxInstacne;
-        hostContext.context_document = docxInstacne;
-      }
+      const params = {
+        text:
+          classConstructor.name === "TextRun" &&
+          (is.str(children) || is.num(children))
+            ? children
+            : undefined, /// for textrun element with singular text child we pass text arg
+        ...props, // all custom params above will be overriden by user props, but below ones won't
+        __document: hostContext.document, // pass document reference for fictive elements
+      };
+      // either call class constructor or just a function
+      const docxInstacne = classConstructor.name
+        ? new classConstructor(params)
+        : classConstructor(params);
+
       return docxInstacne;
     }
     throw new Error(`${type} is not Docx Element`);
@@ -40,25 +41,20 @@ const hostConfig = {
 
   // both parentInstance and child are types of host elements (DOCX objects)
   appendInitialChild(parentInstance, child) {
-    if ("addSection" in parentInstance) {
-      if (!child.type === "section")
-        throw new Error("Document children must be of Sections");
-      parentInstance.addSection({
-        properties: child.props,
-        children: child.children,
-      });
-    } else if ("addChildElement" in parentInstance) {
+    if ("addChildElement" in parentInstance) {
       parentInstance.addChildElement(child);
     } else {
       throw new Error(
-        `${JSON.stringify(
+        `${
+          parentInstance?.type ??
+          parentInstance?.prototype?.constructor.name ??
           parentInstance
-        )} does not have any methods to append a child`
+        } does not have any methods to append a child`
       );
     }
   },
 
-  // asks us if CreateTextInstance must be called for text content of that element
+  // asks us if CreateTextInstance must be called for text content of that specific element
   // for explicit TextRun we return true, so no CreateTextInstance is called
   shouldSetTextContent(type, props) {
     return (
@@ -77,34 +73,33 @@ const hostConfig = {
     return new Docx.TextRun({ text });
   },
 
-  /// Docx doesn't provide straightforward way to mutate elements outside constructor
+  /// we use that to add sections to document we have in our context
+  /// in this step all instances are created, and we add fictive section instance to document
   finalizeInitialChildren(
     domElement,
     type,
-    props,
+    _props,
     rootContainerInstance,
     hostContext
   ) {
-    ///
-    /// saving console.log to possible track callback in the future
-    ///
-    /*console.log(
-      "finalizeInitialChildren",
-      domElement,
-      type,
-      props,
-      rootContainerInstance,
-      hostContext
-    );*/
+    const { children, ...props } = _props;
+    if (domElement.type === "section" && hostContext.isRootContext) {
+      hostContext.document.addSection({
+        children: domElement.children,
+        properties: props,
+      });
+    } else if (domElement.type === "section" || hostContext.isRootContext) {
+      throw new Error("Section is not a root element or part of root Fragment");
+    }
   },
 
-  /// no need for that so far
+  /// provide document instance to all children
   getRootHostContext(rootContainerInstance) {
-    return emptyObject;
+    return { document: rootContainerInstance.document, isRootContext: true };
   },
-  // or that
+  // this is how we let createInstance know that its a child element
   getChildHostContext(parentHostContext, type, rootContainerInstance) {
-    return emptyObject;
+    return { ...parentHostContext, isRootContext: false, type };
   },
   // or even that
   getPublicInstance(instance) {
@@ -192,6 +187,7 @@ export default {
         false,
         false
       );
+      containerNode.document = new Docx.Document();
     }
 
     DocxRenderer.updateContainer(

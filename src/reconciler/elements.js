@@ -7,6 +7,8 @@ Object.keys(Docx).forEach((key) =>
   is.fun(Docx[key]) ? (DocxTypes[key.toLowerCase()] = Docx[key]) : null
 );
 
+DocxTypes["document"] = undefined;
+
 // missing Docx Primitive placholder
 DocxTypes["section"] = class Section {
   constructor(props) {
@@ -19,6 +21,15 @@ DocxTypes["section"] = class Section {
   }
 };
 
+/// image wrapper
+DocxTypes["image"] = ({ src, width, height, __document, ...props }) => {
+  if (!src) {
+    throw new Error("No image src provided");
+  }
+  return Docx.Media.addImage(__document, src, width, height, props);
+};
+
 // shortcuts
 DocxTypes["t"] = DocxTypes["textrun"];
 DocxTypes["p"] = DocxTypes["paragraph"];
+DocxTypes["img"] = DocxTypes["image"];
