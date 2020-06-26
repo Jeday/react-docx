@@ -10,11 +10,12 @@ import { SimpleSectionExample } from "examples/simpleSection";
 
 const IsSave = false;
 
-const renderContainer = {};
-DocxRender.render(<SimpleSectionExample />, renderContainer, () => {
-  console.log(renderContainer.document);
-  Docx.Packer.toBlob(renderContainer.document).then((Blob) => {
-    if (IsSave) saveAs(Blob, "reactDocx.docx");
-    renderAsync(Blob, document.getElementById("root"));
-  });
-});
+DocxRender.renderAsyncDocument({}, <SimpleSectionExample />).then(
+  (document) => {
+    console.log(document);
+    Docx.Packer.toBlob(document).then((Blob) => {
+      if (IsSave) saveAs(Blob, "reactDocx.docx");
+      renderAsync(Blob, window.document.getElementById("root"));
+    });
+  }
+);

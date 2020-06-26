@@ -176,25 +176,32 @@ const hostConfig = {
 };
 const DocxRenderer = ReactReconciler(hostConfig);
 
-export default {
-  render(elements, containerNode, callback) {
-    if (!containerNode || !is.obj(containerNode))
-      throw new Error("containerNode must be an empty object");
-    // We must do this only once
-    if (!containerNode.__internalContainerStructure) {
-      containerNode.__internalContainerStructure = DocxRenderer.createContainer(
-        containerNode,
-        false,
-        false
-      );
-      containerNode.document = new Docx.Document();
-    }
-
-    DocxRenderer.updateContainer(
-      elements,
-      containerNode.__internalContainerStructure,
-      null,
-      callback
+const render = (elements, containerNode, callback) => {
+  if (!containerNode || !is.obj(containerNode))
+    throw new Error("containerNode must be an empty object");
+  // We must do this only once
+  if (!containerNode.__internalContainerStructure) {
+    containerNode.__internalContainerStructure = DocxRenderer.createContainer(
+      containerNode,
+      false,
+      false
     );
-  },
+    containerNode.document = new Docx.Document();
+  }
+
+  DocxRenderer.updateContainer(
+    elements,
+    containerNode.__internalContainerStructure,
+    null,
+    callback
+  );
+};
+
+export const renderAsyncDocument = (options, elements) => {
+  const containerNode = {};
+  containerNode.document = new Docx.Document(options);
+
+  return new Promise((resolve) => {
+    render(elements, containerNode, () => resolve(containerNode.document));
+  });
 };

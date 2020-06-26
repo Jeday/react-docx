@@ -7,7 +7,16 @@ Object.keys(Docx).forEach((key) =>
   is.fun(Docx[key]) ? (DocxTypes[key.toLowerCase()] = Docx[key]) : null
 );
 
-DocxTypes["document"] = undefined;
+DocxTypes["document"] = class Document {
+  constructor(props) {
+    this.type = "document";
+    this.props = props;
+    this.children = [];
+  }
+  addChildElement(child) {
+    this.children.push(child);
+  }
+};
 
 // missing Docx Primitive placholder
 DocxTypes["section"] = class Section {
