@@ -1,8 +1,8 @@
 import ReactReconciler from "react-reconciler";
 import * as Docx from "docx";
 
-import { is } from "utils/is.js";
-import { DocxTypes } from "reconciler/elements.js";
+import { is } from "../utils/is.js";
+import { DocxTypes } from "./elements.js";
 
 const hostConfig = {
   // _props contain raw react children too
@@ -131,7 +131,7 @@ const hostConfig = {
   },
 
   shouldDeprioritizeSubtree(type, props) {
-    console.log("shouldDeprioritizeSubtree", type, props);
+    //console.log("shouldDeprioritizeSubtree", type, props);
     return false;
   },
 

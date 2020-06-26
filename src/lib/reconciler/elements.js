@@ -1,5 +1,5 @@
 import * as Docx from "docx";
-import { is } from "utils/is.js";
+import { is } from "../utils/is.js";
 
 /// populate DocxTypes with Docx Primitives
 export const DocxTypes = {};
