@@ -26,15 +26,23 @@ const hostConfig = {
           (is.str(children) || is.num(children))
             ? children
             : undefined, /// for textrun element with singular text child we pass text arg
-        ...props, // all custom params above will be overriden by user props, but below ones won't
+        ...props,
+        // all custom params above will be overriden by user props, but below ones won't
+        children: [], // some docx elements require children param
         __document: hostContext.document, // pass document reference for fictive elements
       };
-      // either call class constructor or just a function
-      const docxInstacne = classConstructor.name
-        ? new classConstructor(params)
-        : classConstructor(params);
 
-      return docxInstacne;
+      let docxInstance;
+      // either call class constructor or just a function
+      try {
+        docxInstance = classConstructor.name
+          ? new classConstructor(params)
+          : classConstructor(params);
+      } catch (error) {
+        console.error(error);
+      }
+
+      return docxInstance;
     }
     throw new Error(`${type} is not Docx Element`);
   },
