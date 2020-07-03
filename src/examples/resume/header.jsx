@@ -4,6 +4,7 @@ import { cmToTwip } from "./metrics";
 import { useResume } from "./hooks";
 import { useRef } from "react";
 import { useLayoutEffect } from "react";
+import { PlainTable } from "./plainTable";
 const { STYLES } = require("./styles");
 
 const hasAvatar = require("./utils/has-avatar");
@@ -22,13 +23,12 @@ export const Header = () => {
     titleRef.current.properties.setWidth(columnWidths.title, WidthType.DXA);
   });
   return (
-    <table
+    <PlainTable
       width={{
         size: columnWidths.table,
         type: WidthType.DXA,
       }}
       columnWidths={[columnWidths.avatar, columnWidths.title]}
-      rows={[]}
     >
       <tablerow>
         <tablecell
@@ -54,7 +54,7 @@ export const Header = () => {
           <Title />
         </tablecell>
       </tablerow>
-    </table>
+    </PlainTable>
   );
 };
 

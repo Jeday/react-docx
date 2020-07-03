@@ -26,8 +26,9 @@ const hostConfig = {
           (is.str(children) || is.num(children))
             ? children
             : undefined, /// for textrun element with singular text child we pass text arg
-        ...props,
         // all custom params above will be overriden by user props, but below ones won't
+        ...props,
+        rows: [],
         children: [], // some docx elements require children param
         __document: hostContext.document, // pass document reference for fictive elements
       };
