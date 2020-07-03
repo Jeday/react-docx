@@ -60,3 +60,12 @@ export const Section = ({ title, children, iconBuffer }) => {
     </PlainTable>
   );
 };
+
+export const SidebarSection = ({ title, children }) => {
+  return (
+    <>
+      <p style={STYLES.h3}>{title}</p>
+      {children}
+    </>
+  );
+};

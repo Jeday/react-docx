@@ -38,6 +38,22 @@ DocxTypes["image"] = ({ src, width, height, __document, ...props }) => {
   return Docx.Media.addImage(__document, src, width, height, props);
 };
 
+DocxTypes["href"] = ({ src, anchor, __document, label }) => {
+  const hyperlink = new Docx.Hyperlink(
+    label || src,
+    "link" + (__document.docRelationships.RelationshipCount + 1),
+    anchor
+  );
+  __document.docRelationships.createRelationship(
+    hyperlink.linkId,
+    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+    src,
+    "External"
+  );
+
+  return hyperlink;
+};
+
 // shortcuts
 DocxTypes["t"] = DocxTypes["textrun"];
 DocxTypes["p"] = DocxTypes["paragraph"];

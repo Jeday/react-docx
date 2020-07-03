@@ -3,10 +3,20 @@ import { WidthType } from "docx";
 import { cmToTwip } from "./metrics";
 
 import { Header } from "./header";
-import { Main } from "./main";
-import { Sidebar } from "./sidebar";
 import { PlainTable } from "./plainTable";
+import { RenderSection } from "./renderSections";
+import { Details } from "./details";
+import { useResume } from "./hooks";
+
 const { columnWidths } = require("./widths");
+const getSortedSections = require("./utils/get-sorted-sections");
+
+const SIDEBAR_SECTION_NAMES = [
+  "socialProfiles",
+  "skills",
+  "languages",
+  "hobbies",
+];
 
 export const MainLayoutTable = () => {
   const mainCellRef = React.useRef(null);
@@ -18,6 +28,16 @@ export const MainLayoutTable = () => {
       WidthType.DXA
     );
   });
+
+  const { resume } = useResume();
+  // this should be refactored to return array splitted in two
+  const sections = getSortedSections(resume, {
+    exclude: SIDEBAR_SECTION_NAMES,
+  });
+  const sidebarSections = getSortedSections(resume, {
+    only: SIDEBAR_SECTION_NAMES,
+  });
+
   return (
     <PlainTable
       width={{
@@ -48,7 +68,9 @@ export const MainLayoutTable = () => {
             type: WidthType.DXA,
           }}
         >
-          <Main />
+          {sections.map((section) => (
+            <RenderSection key={section.sectionType} section={section} />
+          ))}
         </tablecell>
         <tablecell
           width={{
@@ -57,7 +79,10 @@ export const MainLayoutTable = () => {
           }}
           ref={sidebarCellRef}
         >
-          <Sidebar />
+          {sidebarSections.map((section) => (
+            <RenderSection key={section.sectionType} section={section} />
+          ))}
+          <Details />
         </tablecell>
       </tablerow>
     </PlainTable>

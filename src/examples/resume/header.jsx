@@ -9,19 +9,22 @@ const { STYLES } = require("./styles");
 
 const hasAvatar = require("./utils/has-avatar");
 const { columnWidths } = require("./widths");
+const isPresent = require("./utils/is-present");
 
 export const Header = () => {
   const { resume } = useResume();
-  //if (!hasAvatar(resume)) return <Title />;
 
   // we can use layoutEffect and refs to access docx elements instances
   // for various hacks
   const avatarRef = useRef(null);
   const titleRef = useRef(null);
   useLayoutEffect(() => {
+    if (!(avatarRef && titleRef)) return;
     avatarRef.current.properties.setWidth(columnWidths.avatar, WidthType.DXA);
     titleRef.current.properties.setWidth(columnWidths.title, WidthType.DXA);
   });
+
+  if (!hasAvatar(resume)) return <Title />;
   return (
     <PlainTable
       width={{
@@ -59,7 +62,14 @@ export const Header = () => {
 };
 
 export const Title = () => {
-  return <p style={STYLES.name}>ФИО</p>;
+  const { firstName, lastName, position } = useResume().resume;
+  const fullName = [firstName, lastName].filter(isPresent).join(" ");
+  return (
+    <>
+      {isPresent(fullName) && <p style={STYLES.name}>{fullName}</p>}
+      {isPresent(position) && <p style={STYLES.jobTitle}>{position}</p>}
+    </>
+  );
 };
 
 const imgData =
@@ -68,7 +78,7 @@ const imgData =
 export const Avatar = ({ size = 65 }) => {
   return (
     <p>
-      <img src={imgData} width={size} height={size} />
+      <image src={imgData} width={size} height={size} />
     </p>
   );
 };

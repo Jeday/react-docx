@@ -15,6 +15,8 @@ renderResume(resumeData.document, resumeData.config).then((document) => {
   Docx.Packer.toBlob(document).then((Blob) => {
     if (IsSave) saveAs(Blob, "reactDocx.docx");
 
-    renderAsync(Blob, window.document.getElementById("root"));
+    renderAsync(Blob, window.document.getElementById("root"), undefined, {
+      debug: true,
+    });
   });
 });

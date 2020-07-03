@@ -3,7 +3,7 @@ import DocxRender from "lib/index";
 import { MainLayoutTable } from "./mainLayoutTable";
 import { ResumeProvder } from "./hooks.js";
 
-const { declareStyles, STYLES, COLORS } = require("./styles");
+const { declareStyles, COLORS } = require("./styles");
 const { cmToTwip } = require("./metrics");
 const filterResumeData = require("./utils/filter-resume-data");
 const I18n = require("./utils/i18n");
