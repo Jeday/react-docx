@@ -57,7 +57,8 @@ export const MainLayoutTable = () => {
         >
           <Header />
         </tablecell>
-
+      </tablerow>
+      <tablerow>
         <tablecell
           ref={mainCellRef}
           margins={{
