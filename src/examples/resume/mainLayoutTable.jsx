@@ -10,6 +10,7 @@ import { useResume } from "./hooks";
 
 const { columnWidths } = require("./widths");
 const getSortedSections = require("./utils/get-sorted-sections");
+const hasPersonalDetails = require("./utils/has-personal-details");
 
 const SIDEBAR_SECTION_NAMES = [
   "socialProfiles",
@@ -82,7 +83,7 @@ export const MainLayoutTable = () => {
           {sidebarSections.map((section) => (
             <RenderSection key={section.sectionType} section={section} />
           ))}
-          <Details />
+          {hasPersonalDetails(resume) && <Details />}
         </tablecell>
       </tablerow>
     </PlainTable>

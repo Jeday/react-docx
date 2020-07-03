@@ -1,5 +1,6 @@
 import React from "react";
 import { useResume } from "./hooks";
+import { RichText } from "./richText";
 
 const { STYLES } = require("./styles");
 const isPresent = require("./utils/is-present");
@@ -10,9 +11,7 @@ export const Сard = (props) => {
     <>
       {isPresent(props.title) && <p style={STYLES.h2}>{props.title}</p>}
       {isPresent(props.subtitle) && <p style={STYLES.date}>{props.subtitle}</p>}
-      {isPresent(props.content) && (
-        <p>Здесь должен быть рич текст но я его не сделал еше</p>
-      )}
+      {isPresent(props.content) && <RichText html={props.content} />}
     </>
   );
 };

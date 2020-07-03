@@ -42,7 +42,16 @@ const hostConfig = {
       } catch (error) {
         console.error(error);
       }
-
+      /// call functional props
+      Object.keys(props)
+        .filter((p) => is.fun(docxInstance[p]))
+        .forEach((prop) => {
+          const propVal = props[prop];
+          const propFun = docxInstance[prop];
+          docxInstance = is.arr(propVal)
+            ? propFun.apply(docxInstance, propVal) // array was passed as prop val so we treat as arguments
+            : propFun.call(docxInstance, propVal); // whaterver else was passed is single argument
+        });
       return docxInstance;
     }
     throw new Error(`${type} is not Docx Element`);
