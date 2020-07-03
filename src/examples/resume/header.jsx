@@ -22,7 +22,7 @@ export const Header = () => {
     if (!(avatarRef && titleRef)) return;
     avatarRef.current.properties.setWidth(columnWidths.avatar, WidthType.DXA);
     titleRef.current.properties.setWidth(columnWidths.title, WidthType.DXA);
-  });
+  }, []);
 
   if (!hasAvatar(resume)) return <Title />;
   return (
