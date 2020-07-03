@@ -204,7 +204,6 @@ const render = (elements, containerNode, callback) => {
       false,
       false
     );
-    containerNode.document = new Docx.Document();
   }
 
   DocxRenderer.updateContainer(

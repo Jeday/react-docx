@@ -91,13 +91,13 @@ export const Skill = ({ skill, rating = 1, color = COLORS.accent }) => {
         <SkillCell
           ref={skillBarLevelCellRef}
           width={skillBarLevelWidth}
-          color={color}
+          fill={color}
         />
         {!isMaxRating && (
           <SkillCell
             ref={skillBarFillCellRef}
             width={skillBarFillWidth}
-            color={COLORS.skillBarBg}
+            fill={COLORS.skillBarBg}
           />
         )}
       </tablerow>
