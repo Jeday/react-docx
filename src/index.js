@@ -8,7 +8,7 @@ import { renderAsync } from "docx-preview";
 import { renderResume } from "examples/resume";
 import { resumeData } from "examples/resume/resumeData";
 
-const IsSave = true;
+const IsSave = false;
 
 renderResume(resumeData.document, resumeData.config).then((document) => {
   console.log(document);

@@ -42,7 +42,7 @@ const hostConfig = {
       } catch (error) {
         console.error(error);
       }
-      /// call functional props
+
       Object.keys(props)
         .filter((p) => is.fun(docxInstance[p]))
         .forEach((prop) => {
@@ -215,10 +215,9 @@ const render = (elements, containerNode, callback) => {
   );
 };
 
-export const renderAsyncDocument = (options, elements) => {
+export const renderAsyncDocument = (elements, options, fileProperties) => {
   const containerNode = {};
-  containerNode.document = new Docx.Document(options);
-
+  containerNode.document = new Docx.Document(options, fileProperties);
   return new Promise((resolve) => {
     render(elements, containerNode, () => resolve(containerNode.document));
   });

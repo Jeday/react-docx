@@ -13,11 +13,9 @@ export const renderResume = async (resumeData, config) => {
     ...resumeData,
     color: COLORS.accent,
   });
-
   const { locale, translations } = config;
   const i18n = new I18n({ locale, translations: translations.resume });
   return DocxRender.renderAsyncDocument(
-    { styles: declareStyles(resume.color) },
     <ResumeProvder resume={resume} config={config} i18n={i18n}>
       <section
         margings={{
@@ -33,6 +31,9 @@ export const renderResume = async (resumeData, config) => {
       >
         <MainLayoutTable />
       </section>
-    </ResumeProvder>
+    </ResumeProvder>,
+    {
+      styles: declareStyles(resume.color),
+    }
   );
 };

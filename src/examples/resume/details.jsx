@@ -24,13 +24,12 @@ const Contacts = () => {
   const address = formatAddress(resume);
   // hold my beer
   let counter = 0;
-  const checkCounter = () => (counter > 0 ? { break: true } : {});
+  const checkCounter = () => (counter++ > 0 ? { break: true } : {});
   return (
     <p>
-      {isPresent(address) && <t {...checkCounter()}>{address}</t> && counter++}
-      {isPresent(phoneNumber) && <t {...checkCounter()}>{phoneNumber}</t> &&
-        counter++}
-      {isPresent(email) && <t {...checkCounter()}>{email}</t> && counter++}
+      {isPresent(address) && <t {...checkCounter()}>{address}</t>}
+      {isPresent(phoneNumber) && <t {...checkCounter()}>{phoneNumber}</t>}
+      {isPresent(email) && <t {...checkCounter()}>{email}</t>}
     </p>
   );
 };
@@ -56,15 +55,13 @@ const BirthInfo = () => {
 
   // hold my beer
   let counter = 0;
-  const checkCounter = () => (counter > 0 ? { break: true } : {});
+  const checkCounter = () => (counter++ > 0 ? { break: true } : {});
   return (
     <>
       <p style={STYLES.h4}>{title}</p>
       <p>
-        {isPresent(birthDate) && <t {...checkCounter()}>{birthDate}</t> &&
-          counter++}
-        {isPresent(birthPlace) && <t {...checkCounter()}>{birthPlace}</t> &&
-          counter++}
+        {isPresent(birthDate) && <t {...checkCounter()}>{birthDate}</t>}
+        {isPresent(birthPlace) && <t {...checkCounter()}>{birthPlace}</t>}
       </p>
     </>
   );
