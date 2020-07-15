@@ -5,8 +5,8 @@ import * as Docx from "docx";
 import { saveAs } from "file-saver";
 import { renderAsync } from "docx-preview";
 
-import { renderResume } from "examples/resume";
-import { resumeData } from "examples/resume/resumeData";
+import { renderResume } from "./resume";
+import { resumeData } from "./resume/resumeData";
 
 const IsSave = false;
 
