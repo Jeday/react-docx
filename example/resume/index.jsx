@@ -1,5 +1,5 @@
 import React from "react";
-import DocxRender from "../../src/lib";
+import DocxRender from "../../";
 import { MainLayoutTable } from "./mainLayoutTable";
 import { ResumeProvder } from "./hooks.js";
 
