@@ -1,4 +1,4 @@
-import ReactReconciler from "react-reconciler";
+import * as ReactReconciler from "react-reconciler";
 import * as Docx from "docx";
 
 import { is } from "../utils/is.js";
