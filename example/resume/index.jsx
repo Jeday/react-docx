@@ -1,5 +1,5 @@
 import React from "react";
-import DocxRender from "../../";
+import { renderAsyncDocument } from "../../";
 import { MainLayoutTable } from "./mainLayoutTable";
 import { ResumeProvder } from "./hooks.js";
 
@@ -15,7 +15,7 @@ export const renderResume = async (resumeData, config) => {
   });
   const { locale, translations } = config;
   const i18n = new I18n({ locale, translations: translations.resume });
-  return DocxRender.renderAsyncDocument(
+  return renderAsyncDocument(
     <ResumeProvder resume={resume} config={config} i18n={i18n}>
       <section
         margings={{
