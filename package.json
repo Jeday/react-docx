@@ -3,20 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "module": "src/index.js",
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
   "dependencies": {
-    "docx": "^5.1.1",
     "react-reconciler": "^0.25.1"
   },
+  "peerDependencies": {
+    "docx": "^5.1.1",
+    "react": "^16.13.1"
+  },
+  "author": "Evgeny Taktarov <superjeday@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "start": "parcel serve ./example/index.html"
+    "start": "parcel serve ./example/index.html",
+    "bundle-cjs": "rollup --input src/index.js -e react,docx  -f cjs -d dist --exports named --preserveModules -p @rollup/plugin-node-resolve"
   },
   "browserslist": [
     "last 1 Chrome versions"
   ],
   "devDependencies": {
-    "parcel": "^1.12.4",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "react": "^16.13.1",
+    "docx": "^5.2.2",
+    "rollup": "^2.21.0",
+    "parcel": "^1.12.4",
     "date-fns": "^2.14.0",
     "docx-preview": "^0.1.4",
     "file-saver": "^2.0.2",
