@@ -58,13 +58,13 @@ renderAsyncDocument(
       Sections are root tags for valid DOCX. If you want to have multiple
       sections, pass React Fragment with them to renderAsyncDocument.
     </p>
-    <Componet text="You can use componets of course, just like in react!">
+    <Component text="You can use componets of course, just like in react!">
       <t>A child</t>
     </Component>
   </section>
 ).then((document) => console.log("This is rendered docx document", document));
 
-const Componet = ({ children, text }) => {
+const Component = ({ children, text }) => {
   const ref = React.useRef(null); // use can use refs to access docx objects
   React.useLayoutEffect(() => {
     // you can use LayoutEffect hook in combination with refs to write imperative code( hacks for example)
