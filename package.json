@@ -15,7 +15,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel serve ./example/index.html",
-    "bundle-cjs": "rollup --input src/index.js -e react,docx  -f cjs -d dist --exports named --preserveModules -p @rollup/plugin-node-resolve"
+    "bundle-cjs": "rollup --input src/index.js -e react-reconciler,docx -f cjs -d cjs --exports named --preserveModules -p @rollup/plugin-node-resolve"
   },
   "browserslist": [
     "last 1 Chrome versions"
