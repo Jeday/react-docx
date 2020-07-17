@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "module": "src/index.js",
-  "main": "dist/src/index.js",
+  "main": "build/cjs/index.js",
   "dependencies": {
     "react-reconciler": "^0.25.1"
   },
@@ -15,7 +15,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel serve ./example/index.html",
-    "bundle-cjs": "rollup --input src/index.js -e react-reconciler,docx -f cjs -d cjs --exports named --preserveModules -p @rollup/plugin-node-resolve"
+    "bundle-cjs": "rollup --input src/index.js -e react-reconciler,docx -f cjs -d build/cjs --exports named -p @rollup/plugin-node-resolve"
   },
   "browserslist": [
     "last 1 Chrome versions"
