@@ -1,4 +1,4 @@
-# react-docx
+# react-docx [![https://www.npmjs.com/package/react-docx](https://img.shields.io/npm/v/react-docx)](https://www.npmjs.com/package/react-docx)
 
 react-docx is a React [reconciler](https://github.com/facebook/react/tree/master/packages/react-reconciler) for [DOCX.js](https://github.com/dolanmiu/docx).
 
