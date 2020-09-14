@@ -1,7 +1,21 @@
 {
   "name": "react-docx",
-  "version": "0.1.0",
-  "private": true,
+  "description": "React Reconciler for DOCX - build Docx with JSX",
+  "keywords": [
+    "react",
+    "docx",
+    "reconciler",
+    "node",
+    "browser",
+    "jsx"
+  ],
+  "homepage": "https://github.com/Jeday/react-docx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jeday/react-docx.git"
+  },
+  "version": "1.0.1",
+  "private": false,
   "module": "src/index.js",
   "main": "cjs/index.js",
   "dependencies": {
@@ -15,24 +29,27 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel serve ./example/index.html",
-    "bundle-cjs": "rollup --input src/index.js -e react-reconciler,docx -f cjs -d cjs --exports named -p @rollup/plugin-node-resolve"
+    "bundle-cjs": "rollup --config rollup.config.cjs.js"
   },
   "browserslist": [
     "last 1 Chrome versions"
   ],
   "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "react": "^16.13.1",
-    "docx": "^5.2.2",
-    "rollup": "^2.21.0",
-    "parcel": "^1.12.4",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.16.1",
+    "docx": "^5.3.0",
     "docx-preview": "^0.1.4",
     "file-saver": "^2.0.2",
     "humps": "^2.0.1",
     "jszip": "^3.5.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "lodash-humps": "^3.1.5",
+    "parcel": "^1.12.4",
+    "react": "^16.13.1",
+    "rollup": "^2.26.11",
     "tinycolor2": "^1.4.1"
   }
 }

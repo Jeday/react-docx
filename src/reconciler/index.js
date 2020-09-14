@@ -125,7 +125,15 @@ const hostConfig = {
   },
 
   // pre/post commit callbacks
-  prepareForCommit(containerInfo) {},
+  prepareForCommit() {
+    return null;
+  },
+  preparePortalMount() {
+    return null;
+  },
+  clearContainer() {
+    return false;
+  },
   resetAfterCommit(containerInfo) {},
 
   prepareUpdate(
