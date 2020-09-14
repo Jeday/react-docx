@@ -12,6 +12,8 @@ In current early stage of library and because of inconsistent style of some meth
 
 ### Usage
 
+Instal peer dependencies React and Docx! They are needed for JSX and DOCX elements.
+
 ```jsx
 import React from "react"; // that is needed for jsx to work
 import { renderAsyncDocument } from "react-docx";
