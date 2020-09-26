@@ -60,7 +60,7 @@ renderAsyncDocument(
       Sections are root tags for valid DOCX. If you want to have multiple
       sections, pass React Fragment with them to renderAsyncDocument.
     </p>
-    <Component text="You can use componets of course, just like in react!">
+    <Component text="You can use components of course, just like in react!">
       <t>A child</t>
     </Component>
   </section>
