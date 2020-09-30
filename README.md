@@ -12,7 +12,7 @@ In current early stage of library and because of inconsistent style of some meth
 
 ### Usage
 
-Instal peer dependencies React and Docx! They are needed for JSX and DOCX elements.
+Install peer dependencies React and Docx! They are needed for JSX and DOCX elements.
 
 ```jsx
 import React from "react"; // that is needed for jsx to work
@@ -60,7 +60,7 @@ renderAsyncDocument(
       Sections are root tags for valid DOCX. If you want to have multiple
       sections, pass React Fragment with them to renderAsyncDocument.
     </p>
-    <Component text="You can use componets of course, just like in react!">
+    <Component text="You can use components of course, just like in react!">
       <t>A child</t>
     </Component>
   </section>
