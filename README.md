@@ -4,7 +4,7 @@ react-docx is a React [reconciler](https://github.com/facebook/react/tree/master
 
 ### Why
 
-Largely inspired by [R3F](https://github.com/react-spring/react-three-fiber) this library allows you write your DOCX documents in declarative style with reusable components. This is not a wrapper library and so DOCX classes are trasformed dynamicly into React components.
+Largely inspired by [R3F](https://github.com/react-spring/react-three-fiber) this library allows you write your DOCX documents in declarative style with reusable components. This is not a wrapper library and so DOCX classes are transformed dynamically into React components.
 
 ### Limitations
 
